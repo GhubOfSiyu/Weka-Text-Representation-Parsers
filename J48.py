@@ -97,14 +97,27 @@ def loopTree(f1, f2):
 def beginParse(f1, f2):
     f2.write("function decide_class(attribute) {\n")
     loopTree(f1,f2)
-    f2.write("}")
+    f2.write("}\n")
+
+    f2.write("function run()\n\
+{\n\
+   \n\
+     \n\
+   var i = 0;\n\
+    while(i < 1) {     \n\
+      var t = decide_class(attr[i]);  \n\
+      document.write(t + ',')\n\
+      i++;    \n\
+  }\n\
+\n\
+}\n")
 
 
 
 if __name__ == '__main__':
 
-    f1 = open('D:\Part time job\Top100 Text Represtation\J48.Top100.result.txt','r')
-    f2 = open('D:\Part time job\Output\J48output.js','w')
+    f1 = open('../J48.txt','r')
+    f2 = open('../J48output.js','w')
     #test(f1,f2)
     #parseTree(f1,f2)
     beginParse(f1,f2)
