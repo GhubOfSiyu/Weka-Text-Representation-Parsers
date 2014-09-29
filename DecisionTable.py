@@ -100,8 +100,10 @@ def findcut(f1):
     return array,numArray,nominalArray,nominal
 
 
+data_len = 0
 
 def preProcess(f1,cutPoints,numArray,nominalArray,nominal):
+    global data_len
     line = f1.readline()
     while not line.startswith('\''):
         line = f1.readline()
@@ -137,7 +139,9 @@ def preProcess(f1,cutPoints,numArray,nominalArray,nominal):
 
 
             i = i+1
-        array.append(data[13])
+
+        array.append(data[len(data)-1])
+        data_len = len(data)
         temparray.append(array)
         line = f1.readline()
 
@@ -146,17 +150,18 @@ hashArray = []
 def hashCode(a):
     i = 0
     hv = 0
-    while i<(13):
+    while i<len(a) - 1:
         hv = (int)(hv + (i+1)*5*(int(a[i])+1))
         i = i+1
     return hv
 
 def calHash():
+    global data_len
     i = 0
     while i < len(temparray):
         array = []
         hv = hashCode(temparray[i])
-        array = [hv, temparray[i][13]]
+        array = [hv, temparray[i][data_len - 1]]
         hashArray.append(array)
         i = i+1
 
@@ -173,10 +178,7 @@ def createArray(f5):
     hashArray.sort()
     while j< len(hashArray):
         while i< hashArray[j][0]:
-            if j == len(hashArray) -1:
-                f5.write('[\"no result\"]]\n')
-            else:
-                f5.write('[\"no result\"],\n')
+            f5.write('[\"no result\"],\n')
             i = i+1
         if j == len(hashArray) -1:
             f5.write('[\"'+hashArray[j][1]+'\"]]\n')
@@ -230,18 +232,24 @@ def printRemain(f6,cutPoints,numArray,nominalArray,nominal):
         i = i+1
     f6.write(fields[i]+');\n')
 
-    i = 0
-    f6.write('var nominalArray = new Array(')
-    while i < len(na)-1:
-        f6.write(str(na[i])+',')
-        i = i+1
-    f6.write(str(na[i])+');\n')
+    if len(na) > 0:
+        i = 0
+        f6.write('var nominalArray = new Array(')
+        while i < len(na)-1:
+            f6.write(str(na[i])+',')
+            i = i+1
+        f6.write(str(na[i])+');\n')
+    else:
+        f6.write('var nominalArray = new Array();\n')
 
     f6.write('var cutPoints = [')
     ouputArray(f6,cutPoints)
-
-    f6.write('var nominal = [')
-    ouputArray_2(f6,nominal)
+    
+    if len(na) == 0:
+        f6.write('var nominal = [];\n')
+    else:
+        f6.write('var nominal = [')
+        ouputArray_2(f6,nominal)
 
     f6.write('function findIndex(array, ele) {\nvar i = 0;\nwhile(i<array.length) {\nif(array[i] == ele) return i;\ni++;\n}\nreturn -1;\n}\n')
     f6.write('function convertData(attr) {\n\
