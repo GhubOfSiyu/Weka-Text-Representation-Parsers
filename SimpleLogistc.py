@@ -47,6 +47,7 @@ def calValue(f1,f2,f3):
             line = f1.readline()
 
         i = i+1
+    
 
 
 
@@ -62,4 +63,16 @@ if __name__ == '__main__':
     f3 = open('../SL.txt','r')
 
     calValue(f1,f2,f3)
+    f2.write("\nfunction run()\n\
+{\n\
+   \n\
+     \n\
+   var i = 0;\n\
+    while(i < 1) {     \n\
+      var t = decide_class(attr[i]);  \n\
+      document.write(t + ',')\n\
+      i++;    \n\
+  }\n\
+\n\
+}\n")
 
