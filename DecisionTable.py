@@ -225,10 +225,10 @@ def printRemain(f6,cutPoints,numArray,nominalArray,nominal):
         i = i+1
     f6.write('var attArray = new Array(')
     i = 0
-    while i < len(aa)-1:
-        f6.write(str(aa[i])+',')
+    while i < len(fields)-1:
+        f6.write(fields[i]+',')
         i = i+1
-    f6.write(str(aa[i])+');\n')
+    f6.write(fields[i]+');\n')
 
     i = 0
     f6.write('var nominalArray = new Array(')
