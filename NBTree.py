@@ -184,8 +184,20 @@ def beginParse(f1,f2,f3):
     #f2.write("\n")
     loopTree(f1,f2)
     decClass(f1,f2,f3)
-    f2.write("}")
+    f2.write("}\n")
 
+    f2.write("function run()\n\
+{\n\
+   \n\
+     \n\
+   var i = 0;\n\
+    while(i < 1) {     \n\
+      var t = decide_class(attr[i]);  \n\
+      document.write(t + ',')\n\
+      i++;    \n\
+  }\n\
+\n\
+}\n")   
 
 
 if __name__ == '__main__':
