@@ -1,4 +1,5 @@
 
+import sys
 def SyNum(str):
     index = 0
     data = str.split(" ")
@@ -131,7 +132,20 @@ def beginParse(f1, f2):
     while i < len(categories):
         f2.write('else if(index == %d) return "%s";\n' %(i,categories[i]))
         i = i+1
-    f2.write('}')
+    f2.write('}\n')
+
+    f2.write("function run()\n\
+{\n\
+   \n\
+     \n\
+   var i = 0;\n\
+    while(i < 1) {     \n\
+      var t = decide_class(attr[i]);  \n\
+      document.write(t + ',')\n\
+      i++;    \n\
+  }\n\
+\n\
+}\n")
 
 
 
@@ -141,7 +155,7 @@ def beginParse(f1, f2):
 if __name__ == '__main__':
 
     f1 = open('../RF.txt','r')
-    f2 = open('RFtest.js','w')
+    f2 = open('../RFtest.js','w')
     #test(f1,f2)
     #parseTree(f1,f2)
     beginParse(f1,f2)
